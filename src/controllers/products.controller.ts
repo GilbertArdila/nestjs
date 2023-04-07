@@ -3,12 +3,13 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   Put,
   Query,
 } from '@nestjs/common';
-import { identity } from 'rxjs';
 
 @Controller('products')
 export class ProductsController {
@@ -40,6 +41,8 @@ export class ProductsController {
 
   //post
   @Post()
+  //no es necesario, él ya lo hace por debajo
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() payload: any) {
     return {
       message: 'Acción de crear',
@@ -57,6 +60,8 @@ export class ProductsController {
     };
   }
   @Delete(':id')
+  //no es necesario, él ya lo hace por debajo
+  @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id') id: string) {
     return {
       message: 'Acción de borrar',
