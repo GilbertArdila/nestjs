@@ -2,6 +2,11 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 
 @Controller('products')
 export class ProductsController {
+  @Get()
+  getAllProducts() {
+    return `products`;
+  }
+
   //getting params
   @Get(':id')
   getProduct(@Param('id') id: string) {
