@@ -1,20 +1,35 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
-  @Get()
+  @Get('/all')
   getAllUsers() {
-    return 'users';
+    return {
+      message: 'users',
+    };
   }
 
   @Get(':id')
   getUserById(@Param('id') id: string) {
-    return `user id is ${id} `;
+    return {
+      message: `user id is ${id} `,
+    };
   }
 
   //query params
-  @Get()
+  @Get('')
   getUsers(@Query('limit') limit: number, @Query('offset') offset: number) {
-    return `limit ${limit} and offset ${offset} `;
+    return {
+      message: `limit ${limit} and offset ${offset} `,
+    };
+  }
+  //post
+  @Post()
+  create(@Body() payload: any) {
+    return {
+      message: 'Acción de crear',
+      status: 'ok',
+      payload,
+    };
   }
 }
