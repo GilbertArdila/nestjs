@@ -13,5 +13,10 @@
 
 - para activar las validaciones vamos al archivo main.ts y
   hacemos la siguiente importación: import { ValidationPipe } from '@nestjs/common';
-  luego activamos el pipe de forma global con la siguiente linea: app.useGlobalPipes(new ValidationPipe());
-  antes de poner en eschucha el puerto
+  luego activamos el pipe de forma global con la siguiente linea: app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
+  antes de poner en eschucha el puerto, el whitelist lo que hace es ignorar los atributos que no esten en el dto, si ponemos forbidNonWhitelisted: true, no solo lo ignora sino lo alerta
