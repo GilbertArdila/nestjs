@@ -10,9 +10,12 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-
+import { ProductsService } from '../services/products.service';
 @Controller('products')
 export class ProductsController {
+  //injectamos el servicio
+  constructor(private productsService: ProductsService) {}
+
   //query params
   @Get()
   getLimit(
@@ -20,23 +23,17 @@ export class ProductsController {
     @Query('offset') offset: number,
     @Query('brand') brand = 'no has enviado la marca',
   ) {
-    return {
-      message: `limit ${limit} and offset ${offset} and brand ${brand}`,
-    };
+    return this.productsService.findAll();
   }
   @Get('/all')
   getAll() {
-    return {
-      message: `products`,
-    };
+    return this.productsService.findAll();
   }
 
   //getting params
   @Get(':id')
   getOne(@Param('id') id: string) {
-    return {
-      Message: `product ${id}`,
-    };
+    return this.productsService.findOne(+id);
   }
 
   //post
@@ -44,28 +41,16 @@ export class ProductsController {
   //no es necesario, él ya lo hace por debajo
   @HttpCode(HttpStatus.CREATED)
   create(@Body() payload: any) {
-    return {
-      message: 'Acción de crear',
-      status: 'ok',
-      payload,
-    };
+    return this.productsService.create(payload);
   }
   @Put(':id')
   update(@Body() payload: any, @Param('id') id: string) {
-    return {
-      message: 'Acción de actualizar',
-      status: 'ok',
-      id,
-      payload,
-    };
+    return this.productsService.update(+id, payload);
   }
   @Delete(':id')
   //no es necesario, él ya lo hace por debajo
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id') id: string) {
-    return {
-      message: 'Acción de borrar',
-      id,
-    };
+    return this.productsService.delete(+id);
   }
 }
