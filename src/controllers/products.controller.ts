@@ -12,6 +12,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ProductsService } from '../services/products.service';
+import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dto';
 @Controller('products')
 export class ProductsController {
   //injectamos el servicio
@@ -41,11 +42,14 @@ export class ProductsController {
   @Post()
   //no es necesario, él ya lo hace por debajo
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() payload: any) {
+  create(@Body() payload: CreateProductDto) {
     return this.productsService.create(payload);
   }
   @Put(':id')
-  update(@Body() payload: any, @Param('id', ParseIntPipe) id: number) {
+  update(
+    @Body() payload: UpdateProductDto,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
     return this.productsService.update(id, payload);
   }
   @Delete(':id')
