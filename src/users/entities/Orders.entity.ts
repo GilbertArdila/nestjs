@@ -1,6 +1,8 @@
+import { Product } from 'src/products/entities/Products.entity';
+import { User } from './Users.entity';
+
 export class Order {
-  id: number;
-  customerId: number;
-  ProductId: number;
-  totalAmount: number;
+  date: Date;
+  user: User;
+  products: Product[];
 }

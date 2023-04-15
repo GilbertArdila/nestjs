@@ -26,6 +26,11 @@ export class UsersController {
     return this.service.findOne(id);
   }
 
+  @Get(':id/orders')
+  getOrders(@Param('id', ParseIntPipe) id: number) {
+    return this.service.getOrderByUser(id);
+  }
+
   //query params
   @Get('')
   getUsers(@Query('limit') limit: number, @Query('offset') offset: number) {

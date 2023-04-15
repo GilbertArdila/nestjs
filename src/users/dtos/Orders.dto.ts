@@ -1,19 +1,16 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+import { IsDate, IsNotEmpty } from 'class-validator';
+import { User } from '../entities/Users.entity';
+import { Product } from 'src/products/entities/Products.entity';
 
 export class CreateOrdersDto {
   @IsNotEmpty()
-  @IsNumber()
-  @IsPositive()
-  readonly customerId: number;
+  @IsDate()
+  readonly date: Date;
   @IsNotEmpty()
-  @IsNumber()
-  @IsPositive()
-  readonly ProductId: number;
+  readonly user: User;
   @IsNotEmpty()
-  @IsNumber()
-  @IsPositive()
-  readonly totalAmount: number;
+  readonly products: Product[];
 }
 
 export class UpdateOrderDto extends PartialType(CreateOrdersDto) {}
