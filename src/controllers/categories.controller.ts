@@ -3,60 +3,51 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
+import { CategoriesService } from 'src/services/Categories.service';
 
 @Controller('categories')
 export class CategoriesController {
+  constructor(private service: CategoriesService) {}
+
   @Get()
   getAllCategories() {
-    return {
-      message: 'categories',
-    };
+    this.service.findAll();
   }
+
   @Get(':id')
-  getCategoryById(@Param('id') id: string) {
-    return {
-      message: `category id is ${id} `,
-    };
+  getById(@Param('id', ParseIntPipe) id: number) {
+    return this.service.findOne(id);
   }
 
   //getting more than one param
   @Get(':categoryId/products/:id')
   getCategoryAndProduct(
-    @Param('categoryId') categoryId: string,
-    @Param('id') id: string,
+    @Param('categoryId', ParseIntPipe) categoryId: number,
+    @Param('id', ParseIntPipe) id: number,
   ) {
-    return {
-      message: `category id is ${categoryId} and product id is ${id}`,
-    };
+    return this.service.findProductByCategory(categoryId, id);
   }
 
   //post
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() payload: any) {
-    return {
-      message: 'Acción de crear',
-      status: 'ok',
-      payload,
-    };
+    return this.service.create(payload);
   }
+
   @Put(':id')
-  update(@Body() payload: any, @Param('id') id: string) {
-    return {
-      message: 'Acción de actualizar',
-      status: 'ok',
-      id,
-      payload,
-    };
+  update(@Body() payload: any, @Param('id', ParseIntPipe) id: number) {
+    return this.service.update(id, payload);
   }
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return {
-      message: 'Acción de borrar',
-      id,
-    };
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.service.delete(id);
   }
 }

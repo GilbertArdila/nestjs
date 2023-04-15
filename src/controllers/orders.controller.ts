@@ -4,48 +4,39 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
+import { CreateOrdersDto, UpdateOrderDto } from 'src/dtos/Orders.dto';
+import { OrdersService } from 'src/services/Orders.service';
 
 @Controller('orders')
 export class OrdersController {
+  constructor(private service: OrdersService) {}
   @Get()
   getAllOrders() {
-    return {
-      message: 'ordes',
-    };
+    return this.service.findAll();
   }
 
   @Get(':id')
-  getOrderById(@Param('id') id: string) {
-    return {
-      message: `ordes id is ${id} `,
-    };
+  getOrderById(@Param('id', ParseIntPipe) id: number) {
+    return this.service.findOne(id);
   }
   //post
   @Post()
-  create(@Body() payload: any) {
-    return {
-      message: 'Acción de crear',
-      status: 'ok',
-      payload,
-    };
+  create(@Body() payload: CreateOrdersDto) {
+    return this.service.create(payload);
   }
   @Put(':id')
-  update(@Body() payload: any, @Param('id') id: string) {
-    return {
-      message: 'Acción de actualizar',
-      status: 'ok',
-      id,
-      payload,
-    };
+  update(
+    @Body() payload: UpdateOrderDto,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.update(payload, id);
   }
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return {
-      message: 'Acción de borrar',
-      id,
-    };
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.service.delete(id);
   }
 }
