@@ -10,7 +10,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CategoriesService } from 'src/services/Categories.service';
+import { CategoriesService } from 'src/products/services/Categories.service';
+import { CreateCategoryDto, UpdateCategoryDto } from '../dtos/Categories.dto';
 
 @Controller('categories')
 export class CategoriesController {
@@ -38,12 +39,15 @@ export class CategoriesController {
   //post
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() payload: any) {
+  create(@Body() payload: CreateCategoryDto) {
     return this.service.create(payload);
   }
 
   @Put(':id')
-  update(@Body() payload: any, @Param('id', ParseIntPipe) id: number) {
+  update(
+    @Body() payload: UpdateCategoryDto,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
     return this.service.update(id, payload);
   }
   @Delete(':id')

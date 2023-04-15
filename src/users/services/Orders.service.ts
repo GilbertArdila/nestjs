@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateOrderDto, UpdateOrderDtos } from 'src/dtos/Orders.dto';
-import { Order } from 'src/entities/Orders.entity';
+import { CreateOrdersDto, UpdateOrderDto } from 'src/users/dtos/Orders.dto';
+import { Order } from 'src/users/entities/Orders.entity';
 
 @Injectable()
 export class OrdersService {
@@ -34,7 +34,7 @@ export class OrdersService {
     return { categoryId, id };
   }
 
-  create(payload: CreateOrderDto) {
+  create(payload: CreateOrdersDto) {
     this.counterId = this.counterId + 1;
     const newCategory = {
       id: this.counterId,
@@ -44,7 +44,7 @@ export class OrdersService {
     return newCategory;
   }
 
-  update(id: number, payload: UpdateOrderDtos) {
+  update(id: number, payload: UpdateOrderDto) {
     const categoryFound = this.findOne(id);
     if (!categoryFound) {
       throw new NotFoundException(`the category ${id} does not exist`);

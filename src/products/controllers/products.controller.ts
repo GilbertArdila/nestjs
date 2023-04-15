@@ -12,7 +12,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { ProductsService } from '../services/products.service';
-import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dto';
+import {
+  CreateProductDto,
+  UpdateProductDto,
+} from 'src/products/dtos/products.dto';
 @Controller('products')
 export class ProductsController {
   //injectamos el servicio
