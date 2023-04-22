@@ -5,6 +5,7 @@
 - nest g s services/products --flat para crear servicios
 - nest g mo users para crear modulos (products/users)
 - npm i @nestjs/config para las variables de ambiente
+- npm i --save joi para validar las variables de entorno
 
 ## adding new dependency
 
