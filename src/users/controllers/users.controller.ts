@@ -14,6 +14,7 @@ import { UsersService } from 'src/users/services/Users.service';
 
 @Controller('users')
 export class UsersController {
+  //llamamos el servicio del user
   constructor(private service: UsersService) {}
 
   @Get('/all')

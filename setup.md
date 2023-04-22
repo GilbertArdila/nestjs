@@ -3,7 +3,8 @@
 - npm run start:dev
 - nest g co controllers/categories --flat para crear controladores
 - nest g s services/products --flat para crear servicios
-- nest g mo users para crear modulos
+- nest g mo users para crear modulos (products/users)
+- npm i @nestjs/config para las variables de ambiente
 
 ## adding new dependency
 

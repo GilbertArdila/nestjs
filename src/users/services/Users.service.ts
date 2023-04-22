@@ -3,9 +3,18 @@ import { CreateUserDto, UpdateUserDto } from 'src/users/dtos/Users.dto';
 import { User } from 'src/users/entities/Users.entity';
 import { Order } from '../entities/Orders.entity';
 import { ProductsService } from 'src/products/services/products.service';
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class UsersService {
-  constructor(private ProductsService: ProductsService) {}
+  //injectamos el service de products porque lo usamos en el servicio que llama las ordenes del usuario
+  constructor(
+    private ProductsService: ProductsService,
+    //injectamos las variables desde app.module ConfigModule.forRoot({
+    // envFilePath: '.env',
+    //isGlobal: true,
+    // }),
+    private configService: ConfigService,
+  ) {}
   private counterId = 1;
   private users: User[] = [
     {
@@ -25,6 +34,10 @@ export class UsersService {
     },
   ];
   findAll() {
+    //usamos la variable de entorno
+    const db = this.configService.get('DATABASE_NAME');
+    const apikey = this.configService.get('APY_KEY');
+    console.log(apikey + db);
     return this.users;
   }
 
