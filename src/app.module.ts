@@ -4,13 +4,15 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { ConfigModule } from '@nestjs/config';
+import { environments } from './users/enviroments';
 @Module({
   imports: [
     UsersModule,
     ProductsModule,
     //injectamos las variables desde el .env y las hacemos globales
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      //le pasamos el ambiente dinamicamente
+      envFilePath: environments[process.env.NODE_ENV] || '.env',
       isGlobal: true,
     }),
   ],
