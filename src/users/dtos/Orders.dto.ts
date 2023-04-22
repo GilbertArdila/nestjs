@@ -1,4 +1,4 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { PartialType } from '@nestjs/swagger';
 import { IsDate, IsNotEmpty } from 'class-validator';
 import { User } from '../entities/Users.entity';
 import { Product } from 'src/products/entities/Products.entity';

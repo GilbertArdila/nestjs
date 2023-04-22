@@ -11,11 +11,15 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { ProductsService } from '../services/products.service';
 import {
   CreateProductDto,
   UpdateProductDto,
 } from 'src/products/dtos/products.dto';
+
+@ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   //injectamos el servicio
