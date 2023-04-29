@@ -39,7 +39,7 @@
   - tambien cambiar la importación del partialType manualmente en los paquetes de dto's por la siguiente
     import { PartialType } from '@nestjs/swagger';
   - tambien se debe hacer un rm -rf dist desde la consola para que se vean reflejados los cambios
-  - se debe poner este código en el app.module para la integracion de node/posgrest
+  - se debe poner este código en el database.module para la integracion de node/posgrest
 
 const client = new Client({
 user: 'root',
