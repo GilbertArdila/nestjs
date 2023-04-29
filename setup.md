@@ -12,6 +12,8 @@
 - npm i --save joi para validar las variables de entorno
 - npm install @nestjs/platform-express
 - npm install --save @nestjs/swagger swagger-ui-express documentación con swagger
+- npm i pg integracion node-postgres
+- npm i @types/pg -D para el tipado
 
 ## adding new dependency
 
@@ -37,3 +39,14 @@
   - tambien cambiar la importación del partialType manualmente en los paquetes de dto's por la siguiente
     import { PartialType } from '@nestjs/swagger';
   - tambien se debe hacer un rm -rf dist desde la consola para que se vean reflejados los cambios
+  - se debe poner este código en el app.module para la integracion de node/posgrest
+
+const client = new Client({
+user: 'root',
+host: 'localhost',
+database: 'my_db',
+password: '123456',
+port: 5432,
+});
+
+client.connect();
